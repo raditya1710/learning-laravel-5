@@ -24,7 +24,7 @@
     <!-- Published_at Form Input -->
     <div class="form-group">
       {!! Form::label('published_at', 'Publish On:') !!}
-      {!! Form::input('date','published_at', date('Y-m-d'), ['class' => 'form-control']) !!} 
+      {!! Form::input('date','published_at', date('Y-m-d'), ['class' => 'form-control']) !!}
       <!-- the third argument, which null, is actually a default -->
     </div>
 
@@ -34,4 +34,12 @@
     </div>
   {!! Form::close() !!}
 
+  @if ($errors->any())
+  <ul class="alert alert-danger">
+    @foreach ($errors->all() as $error)
+      <li>{{ $error }}</li>
+    @endforeach
+  </ul>
+
+  @endif
 @stop
