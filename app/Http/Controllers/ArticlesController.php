@@ -12,7 +12,13 @@ class ArticlesController extends Controller
 {
     public function index(){
       /* $articles = Article::all(); */ //make articles down to the bottom, expected top
-      $articles = Article::latest('published_at')->get();
+
+      $articles = Article::latest('published_at')->unpublished()->get(); //done with scope, reference to Article.php
+      // same as:
+      /* $articles = Article::latest('published_at')->where('published_at', '<=', Carbon::now())->get(); */
+      // ^ without scope
+
+      // make the future published not seen
       return view('articles.index', compact('articles'));
     }
 
@@ -23,6 +29,9 @@ class ArticlesController extends Controller
       if(is_null($article)){
         abort(404);
       }*/
+
+      dd($article->published_at); //show the Carbon instance
+
       return view('articles.show', compact('article'));
     }
 
@@ -31,10 +40,7 @@ class ArticlesController extends Controller
     }
 
     public function store(){
-      $input = Request::all();
-
-      $input['published_at'] = Carbon::now();
-      Article::create($input);
+      Article::create(Request::all());
       //same as
       /*
       $article = new Article;
