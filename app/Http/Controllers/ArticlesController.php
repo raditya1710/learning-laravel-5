@@ -12,6 +12,10 @@ use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
 {
+
+    public function __construct(){
+      $this->middleware('auth', ['only' => 'create']);
+    }
     public function index(){
 
       /* $articles = Article::all(); */ //make articles down to the bottom, expected top
@@ -39,6 +43,10 @@ class ArticlesController extends Controller
     }
 
     public function create(){
+
+      if(Auth::guest()){
+        return redirect('articles');
+      }
       return view('articles.create');
     }
 
