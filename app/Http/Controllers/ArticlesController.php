@@ -6,14 +6,16 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Http\Requests;
+use App\Http\Requests\ArticleRequest;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
 {
     public function index(){
       /* $articles = Article::all(); */ //make articles down to the bottom, expected top
 
-      $articles = Article::latest('published_at')->unpublished()->get(); //done with scope, reference to Article.php
+      $articles = Article::latest('published_at')->published()->get(); //done with scope, reference to Article.php
       // same as:
       /* $articles = Article::latest('published_at')->where('published_at', '<=', Carbon::now())->get(); */
       // ^ without scope
@@ -30,7 +32,7 @@ class ArticlesController extends Controller
         abort(404);
       }*/
 
-      dd($article->published_at); //show the Carbon instance
+      //dd($article->published_at); //show the Carbon instance
 
       return view('articles.show', compact('article'));
     }
@@ -45,8 +47,21 @@ class ArticlesController extends Controller
      * @param CreateArticleRequest $Request
      * @return Response
      */
-    public function store(Requests\CreateArticleRequest $request){
+    public function store(ArticleRequest $request){
       Article::create($request->all());
+      return redirect('articles'); // make to the articles page again
+    }
+
+    public function edit($id){
+      $article = Article::findOrFail($id);
+      return view('articles.edit', compact('article'));
+    }
+
+    public function update($id, ArticleRequest $request){
+      $article = Article::findOrFail($id);
+
+      $article->update($request->all());
+
       return redirect('articles');
     }
 }
