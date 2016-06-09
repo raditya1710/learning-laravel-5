@@ -59,11 +59,21 @@ class ArticlesController extends Controller
 
       // to validate the request with certain data:
       /* $this->validate($request, ['title' => 'required']); */
-      $article = new Article($request->all()); //user_id is made behind the scene
+      //$article = new Article($request->all()); //user_id is made behind the scene
 
-      Auth::user()->articles()->save($article);
 
+      Auth::user()->articles()->create($request->all());
+
+      /*
+      \Session::flash('flash_message', 'Your article has been created!');
+      session()->flash('flash_message_important', true);
       return redirect('articles'); // make to the articles page again
+      */
+      //same with:
+      return redirect('articles')->with([
+        'flash_message' => 'Your article has been created!',
+        'flash_message_important' => true
+      ]);
     }
 
     public function edit(Article $article){
