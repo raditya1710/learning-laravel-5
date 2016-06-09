@@ -58,7 +58,10 @@ class ArticlesController extends Controller
      */
     public function store(ArticleRequest $request){
 
+      // to validate the request with certain data:
+      /* $this->validate($request, ['title' => 'required']);
       $article = new Article($request->all()); //user_id is made behind the scene
+
       Auth::user()->articles()->save($article);
 
       return redirect('articles'); // make to the articles page again

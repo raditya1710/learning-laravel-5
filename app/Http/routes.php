@@ -15,6 +15,8 @@ Route::get('articles/{id}','ArticlesController@show');
 Route::post('articles', 'ArticlesController@store');
 Route::get('articles/{id}/edit', 'ArticlesController@edit');
 */
+
+// Make All generate by resource
 Route::resource('articles', 'ArticlesController');
 
 Route::controllers([
