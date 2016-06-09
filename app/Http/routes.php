@@ -1,6 +1,10 @@
 <?php
 
 
+Route::get('/', function(){
+  return 'Laravel 5';
+});
+
 //if yout want to attach middleware to route:
 /* Route::get('about', ['middleware' => 'auth', 'uses' => 'PagesController@about']); */
 Route::get('about', 'PagesController@about');
