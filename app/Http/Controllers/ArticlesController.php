@@ -20,7 +20,7 @@ class ArticlesController extends Controller
 
       /* $articles = Article::all(); */ //make articles down to the bottom, expected top
 
-      $articles = Article::latest('published_at')->published()->get(); //done with scope, reference to Article.php
+      $articles = Article::latest('published_at')->published()->get(); //done with scope, reference to Article.
       // same as:
       /* $articles = Article::latest('published_at')->where('published_at', '<=', Carbon::now())->get(); */
       // ^ without scope
