@@ -43,10 +43,8 @@ class ArticlesController extends Controller
 
     public function create(){
 
-      if(Auth::guest()){
-        return redirect('articles');
-      }
-      return view('articles.create');
+      $tags = \App\Tag::lists('name', 'id');
+      return view('articles.create', compact('tags'));
     }
 
     /**
@@ -61,8 +59,10 @@ class ArticlesController extends Controller
       /* $this->validate($request, ['title' => 'required']); */
       //$article = new Article($request->all()); //user_id is made behind the scene
 
+      $article = Auth::user()->articles()->create($request->all());
 
-      Auth::user()->articles()->create($request->all());
+      $tagIds = $request->input('tag_list');
+      $article->tags()->attach($tagIds);
 
       /*
       \Session::flash('flash_message', 'Your article has been created!');
@@ -76,7 +76,8 @@ class ArticlesController extends Controller
     }
 
     public function edit(Article $article){
-      return view('articles.edit', compact('article'));
+      $tags = \App\Tag::lists('name', 'id');
+      return view('articles.edit', compact('article', 'tags'));
     }
 
     public function update(Article $article, ArticleRequest $request){

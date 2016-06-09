@@ -17,6 +17,13 @@
   <!-- the third argument, which null, is actually a default -->
 </div>
 
+<!-- Tags Form Input -->
+<div class="form-group">
+  {!! Form::label('tag_list', 'Tags:') !!}
+  {!! Form::select('tag_list[]', $tags , null, ['class' => 'form-control', 'multiple']) !!}
+</div>
+<!-- tags with [] needed to make tags passed is an array, not a single variables -->
+
 <!-- Add Article Form Input -->
 <div class="form-group">
   {!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control']) !!}
