@@ -9,7 +9,7 @@
   <!-- <form></form> -->
   <!-- Use: -->
   <!-- Bandingkan kode disini dan view source -->
-  {!! Form::open(['url' => 'articles']) !!}
+  {!! Form::open(['url' => 'articles'], $article = new \App\Article) !!}
     @include('articles.form', ['submitButtonText' => 'Add Article'])
   {!! Form::close() !!}
 

@@ -21,6 +21,8 @@ Route::get('articles/{id}/edit', 'ArticlesController@edit');
 // Make All generate by resource
 Route::resource('articles', 'ArticlesController');
 
+Route::get('tags/{tags}', 'TagsController@show');
+
 Route::controllers([
   'auth' => 'Auth\AuthController',
   'password'=> 'Auth\PasswordController'

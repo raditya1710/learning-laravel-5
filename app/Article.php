@@ -26,6 +26,10 @@ class Article extends Model
       $this->attributes['published_at'] = Carbon::parse($date);
     }
 
+    public function getPublishedAtAttribute($date){
+
+      return new Carbon($date);
+    }
     /* dibawah ini kayak relationship di database */
     public function user(){
       return $this->belongsTo('App\User');
