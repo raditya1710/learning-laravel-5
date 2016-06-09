@@ -14,16 +14,21 @@ var elixir = require('laravel-elixir');
 elixir(function(mix) {
 
 
-   mix.sass('app.scss');
+   mix.sass('app.scss', 'resources/css');
 
-    mix.styles([
-      'vendor/normalize.css',
-      'app.css'
-    ], null, 'public/css');
+   mix.styles([
+      'libs/bootstrap.min.css',
+      'app.css',
+      'libs/select2.min.css'
+  ], null, 'resources/css');
 
     /*first argument is the files that want to be merge
       second argument is the output directory/filename
       third argument is the input directory */
 
-      mix.version('public/css/all.css');
+    mix.scripts([
+        'libs/jquery.js',
+        'libs/select2.min.js',
+        'libs/bootstrap.min.js'
+    ], null, 'resources/js');
 });
