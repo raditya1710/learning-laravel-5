@@ -70,10 +70,9 @@ class ArticlesController extends Controller
       return redirect('articles'); // make to the articles page again
       */
       //same with:
-      return redirect('articles')->with([
-        'flash_message' => 'Your article has been created!',
-        'flash_message_important' => true
-      ]);
+      flash()->overlay('Your article has been successfully created!', 'Good Job!');
+
+      return redirect('articles');
     }
 
     public function edit(Article $article){
