@@ -59,10 +59,8 @@ class ArticlesController extends Controller
       /* $this->validate($request, ['title' => 'required']); */
       //$article = new Article($request->all()); //user_id is made behind the scene
 
-      $article = Auth::user()->articles()->create($request->all());
+      $this->createArticle($request);
 
-      $tagIds = $request->input('tag_list');
-      $article->tags()->attach($tagIds);
 
       /*
       \Session::flash('flash_message', 'Your article has been created!');
@@ -82,7 +80,20 @@ class ArticlesController extends Controller
 
     public function update(Article $article, ArticleRequest $request){
       $article->update($request->all());
+      $this->syncTags($article, $request->input('tag_list'));
 
       return redirect('articles');
+    }
+
+    private function syncTags(Article $article, array $tags){
+
+      $article->tags()->sync($tags);
+    }
+
+    private function createArticle(ArticleRequest $request){
+      $article = Auth::user()->articles()->create($request->all());
+      $this->syncTags($article, $request->input('tag_list'));
+
+      return $article;
     }
 }
