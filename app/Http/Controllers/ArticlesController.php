@@ -29,8 +29,7 @@ class ArticlesController extends Controller
       return view('articles.index', compact('articles'));
     }
 
-    public function show($id){
-      $article = Article::findOrFail($id);
+    public function show(Article $article){
       //same as:
       /*$article = Article::find($id);
       if(is_null($article)){
@@ -59,7 +58,7 @@ class ArticlesController extends Controller
     public function store(ArticleRequest $request){
 
       // to validate the request with certain data:
-      /* $this->validate($request, ['title' => 'required']);
+      /* $this->validate($request, ['title' => 'required']); */
       $article = new Article($request->all()); //user_id is made behind the scene
 
       Auth::user()->articles()->save($article);
@@ -67,14 +66,11 @@ class ArticlesController extends Controller
       return redirect('articles'); // make to the articles page again
     }
 
-    public function edit($id){
-      $article = Article::findOrFail($id);
+    public function edit(Article $article){
       return view('articles.edit', compact('article'));
     }
 
-    public function update($id, ArticleRequest $request){
-      $article = Article::findOrFail($id);
-
+    public function update(Article $article, ArticleRequest $request){
       $article->update($request->all());
 
       return redirect('articles');

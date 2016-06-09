@@ -39,7 +39,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapWebRoutes($router);
 
-        //
+        $router->model('articles', 'App\Article');
+        
     }
 
     /**
